@@ -1,100 +1,154 @@
-import Image from "next/image";
+
+"use client";
+
+import { motion } from "framer-motion";
+import { useRouter } from 'next/navigation';
+import React from 'react';
+
+import { FaRocket, FaBrain, FaChartLine, FaCheck, FaQuestionCircle } from 'react-icons/fa';
+
+
 
 export default function Home() {
+  const router = useRouter();
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.js
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div className="bg-gradient-to-br from-violet-700 via-blue-800 to- text-white font-sans overflow-x-hidden">
+      
+      <header className="container mx-auto py-6 px-8 flex justify-between items-center">
+        <motion.div 
+          className="text-3xl font-bold "
+          initial={{ x: -100, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          QueryMentor
+        </motion.div>
+        <motion.nav 
+          className="space-x-8"
+          initial={{ x: 100, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <a href="#features" className="hover:text-blue-400">Features</a>
+          <a href="#how-it-works" className="hover:text-blue-400">How It Works</a>
+          <a href="#testimonials" className="hover:text-blue-400">Testimonials</a>
+          <a href="#register" className="hover:text-blue-400 " onClick={() => router.push('/dashboard')}>Register</a>
+        </motion.nav>
+      </header>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      <section className="container mx-auto px-8 py-20 text-center">
+        <motion.h2 
+          className="text-5xl font-extrabold leading-tight mb-6"
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+        >
+          Ace Your Next Interview with <span className="text-blue-400  text-6xl">QueryMentor</span>
+        </motion.h2>
+        <motion.p 
+          className="text-lg mb-8"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.5 }}
+        >
+          Personalized AI-driven feedback to elevate your interview performance. Identify strengths, address weaknesses, and grow with confidence.
+        </motion.p>
+        <motion.a 
+          href="#register"
+          className="inline-block bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg transform transition-transform duration-200 hover:scale-105"
+          whileHover={{ scale: 1.1 }}
+        >
+          Get Started
+        </motion.a>
+      </section>
+
+      <section id="features" className="container mx-auto px-8 py-16 text-center">
+        <motion.h3 
+          className="text-3xl font-bold mb-8"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+        >
+          Features
+        </motion.h3>
+        <div className="grid md:grid-cols-3 gap-10">
+          <motion.div className="bg-gray-800 p-6 rounded-lg shadow-lg" whileHover={{ scale: 1.05 }}>
+            <FaBrain className="text-4xl text-blue-400 mx-auto mb-4" />
+            <h4 className="text-xl font-semibold mb-4">AI-Powered Feedback</h4>
+            <p>Get detailed feedback on your interview responses, powered by advanced AI insights.</p>
+          </motion.div>
+          <motion.div className="bg-gray-800 p-6 rounded-lg shadow-lg" whileHover={{ scale: 1.05 }}>
+            <FaChartLine className="text-4xl text-blue-400 mx-auto mb-4" />
+            <h4 className="text-xl font-semibold mb-4">Skill Analysis</h4>
+            <p>Understand where you excel and where you need improvement for targeted prep.</p>
+          </motion.div>
+          <motion.div className="bg-gray-800 p-6 rounded-lg shadow-lg" whileHover={{ scale: 1.05 }}>
+            <FaRocket className="text-4xl text-blue-400 mx-auto mb-4" />
+            <h4 className="text-xl font-semibold mb-4">Progress Tracking</h4>
+            <p>Track your journey with interactive charts and keep improving over time.</p>
+          </motion.div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+      </section>
+
+     
+      <section id="how-it-works" className="container mx-auto px-8 py-16 text-center bg-gray-800 rounded-lg">
+        <h3 className="text-3xl font-bold mb-8">How It Works</h3>
+        <div className="grid md:grid-cols-3 gap-10">
+          <motion.div className="p-6 rounded-lg shadow-2xl" whileHover={{ scale: 1.05 }}>
+            <FaCheck className="text-4xl text-green-400 mx-auto mb-4" />
+            <h4 className="text-xl font-semibold mb-4">Register and Login</h4>
+            <p>Create your profile and start your personalized interview experience.</p>
+          </motion.div>
+          <motion.div className="p-6 rounded-lg shadow-2xl" whileHover={{ scale: 1.05 }}>
+            <FaBrain className="text-4xl text-purple-400 mx-auto mb-4" />
+            <h4 className="text-xl font-semibold mb-4">Take the Interview</h4>
+            <p>Answer curated questions and let the AI analyze your performance.</p>
+          </motion.div>
+          <motion.div className="p-6 rounded-lg shadow-2xl" whileHover={{ scale: 1.05 }}>
+            <FaChartLine className="text-4xl text-red-400 mx-auto mb-4" />
+            <h4 className="text-xl font-semibold mb-4">Get Feedback</h4>
+            <p>Receive comprehensive feedback and improvement suggestions in real time.</p>
+          </motion.div>
+        </div>
+      </section>
+
+     
+      
+
+    
+      <section id="faq" className="container mx-auto px-8 py-16 text-center">
+        <h3 className="text-3xl font-bold mb-8">Frequently Asked Questions</h3>
+        <div className="grid md:grid-cols-2 gap-10 text-left">
+          <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
+            <FaQuestionCircle className="text-3xl text-blue-400 mb-4" />
+            <h4 className="text-xl font-semibold mb-2">What is QueryMentor?</h4>
+            <p>QueryMentor is an AI-driven interview preparation platform providing feedback and insights to help you improve.</p>
+          </div>
+          <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
+            <FaQuestionCircle className="text-3xl text-blue-400 mb-4" />
+            <h4 className="text-xl font-semibold mb-2">Is it free to use?</h4>
+            <p>Yes, you can register and get started for free.</p>
+          </div>
+        </div>
+      </section>
+
+      
+      <section id="register" className="container mx-auto px-8 py-20 text-center">
+        <h3 className="text-4xl font-bold mb-6">Start Your Journey with QueryMentor</h3>
+        <p className="text-lg mb-8">Sign up today and take the first step toward acing your interviews with confidence.</p>
+        <motion.a 
+          href="#register" 
+          className="inline-block bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg transform transition-transform duration-200 hover:scale-105"
+          whileHover={{ scale: 1.1 }}
+          onClick={() => router.push('/dashboard')}
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+          Register Now
+        </motion.a>
+      </section>
+
+  
+      <footer className="container mx-auto px-8 py-8 text-center text-black">
+        <p>&copy; 2024 QueryMentor. All rights reserved.</p>
       </footer>
     </div>
   );

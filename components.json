@@ -1,0 +1,31 @@
+{
+  "$schema": "https://ui.shadcn.com/schema.json",  
+  "style": "default",                           
+  "rsc": true,                                  
+  "tsx": false,                                
+  "tailwind": {
+    "config": "tailwind.config.js",             
+    "css": "app/globals.css",                   
+    "baseColor": "neutral",                   
+    "cssVariables": true,                        
+    "prefix": ""                                
+  },
+  "aliases": {
+    "components": "@/components",               
+    "utils": "@/lib/utils",                      
+    "ui": "@/components/ui",                    
+    "lib": "@/lib",                              
+    "hooks": "@/hooks"                           
+  },
+  "iconLibrary": "lucide",                        
+  "components": {
+    "background-lines": {                       
+      "enabled": true,                           
+      "type": "animated",                        
+      "lineColor": "#E0E0E0",                    
+      "lineWidth": "2px",                       
+      "lineOpacity": 0.1,                        
+      "animationSpeed": "slow"                    
+    }
+  }
+}
