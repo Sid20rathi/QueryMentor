@@ -17,28 +17,51 @@ import { v4 as uuidv4 } from 'uuid';
 import { useUser } from '@clerk/nextjs'
 import moment from 'moment/moment'
 import { useRouter } from 'next/navigation'
+import { chatSession } from '@/app/utils/GeminiAimodel'
+import { LoaderCircle } from 'lucide-react'
 
 function AddNewInterview() {
     const[openDialog, setOpenDialog] = useState(false)
     const[jobPosition, setJobPosition] = useState();
     const[jobDescription, setJobDescription] = useState();
     const[jobExperience, setJobExperience] = useState();
+    const[loading,setLoading] = useState(false);
+    const[jsonResponse,setJsonResponse] = useState([]);
     const router = useRouter();
     const {user} = useUser()
-     const onSubmit = async(e)=>{
-      const res = await db.insert(MockInterview).values({
-        mockId: uuidv4(),
-        jsonMockResp:"null for now",
-        jobPosition:jobPosition,
-        jobDescription:jobDescription,
-        jobExperience:jobExperience,
-        createdBy:user?.primaryEmailAddress?.emailAddress,
-        createdAt: moment().format('YYYY-MM-DD'),
+    const onSubmit = async(e)=>{
+      setLoading(true);
+      e.preventDefault()
+      const InputPrompt =  `job position: ${jobPosition}, job description: ${jobDescription}, job experience: ${jobExperience},depends on the job position and experience level, provide ${process.env.NEXT_PUBLIC_MOCK_INTERVIEW_QUESTIONS_COUNT} most difficult interview questions along with answers in JSON format,Give us questions and answers field on JSON`
+      const result = await chatSession.sendMessage(InputPrompt);
+      const MockResponse = result.response.text().replace('```json','').replace('```','').replace(/[\x00-\x1F\x7F]/g, '');
+      console.log(JSON.parse(MockResponse));
+      setJsonResponse(MockResponse);
+      if(MockResponse){
+        const res = await db.insert(MockInterview).values({
+          mockId: uuidv4(),
+          jsonMockResp:MockResponse,
+          jobPosition:jobPosition,
+          jobDescription:jobDescription,
+          jobExperience:jobExperience,
+          createdBy:user?.primaryEmailAddress?.emailAddress,
+          createdAt: moment().format('DD-MM-YYYY'),
+  
+  
+  
+        }).returning({mockId:MockInterview.mockId})
+        console.log("id is",res);
+        if(res){
+          setOpenDialog(false);
+          router.push(`/dashboard/interview/${res[0]?.mockId}`)
+        }
+       
+      }else{
+        console.log("No response yet")
+      }
 
-
-
-      }).returning({mockId:MockInterview.mockId})
-      setOpenDialog(false)
+      setLoading(false);
+    
      
 
     }
@@ -55,7 +78,7 @@ function AddNewInterview() {
         <DialogTitle className='text-2xl'>Tell us more about your job Interview</DialogTitle>
      
       <DialogDescription>
-      < form >
+      < form onSubmit={onSubmit} >
         <div>
            
             <h2>Add Details about your job position/role, Job description and years of experience</h2>
@@ -67,7 +90,7 @@ function AddNewInterview() {
 
             </div>
             <div className=' my-3'>
-            <label> Job Description</label>
+            <label> Job Description/Tech Stack</label>
             <Textarea placeholder='Ex. React,Angular ,Node js ,MySql etc' required onChange={(e)=>{
                 setJobDescription(e.target.value)}}/>
 
@@ -81,12 +104,13 @@ function AddNewInterview() {
            
             
         </div>
-        </form>
+    
        
         <div className='flex gap-5 justify-end'>
             <Button variant='ghost' type='button' onClick={()=>setOpenDialog(false)}> Cancel</Button>
-            <Button type='submit' onClick ={() => router.push('/dashboard/interview/23')}> Start</Button>
+            <Button type='submit'  disabled={loading} > {loading ? <><LoaderCircle className='animate-spin h-5 w-5 mr-3 flex justify-center'/>Generating Questions</> : 'Start Interview'}</Button>
         </div>
+        </form>
 
       </DialogDescription>
     </DialogHeader>
