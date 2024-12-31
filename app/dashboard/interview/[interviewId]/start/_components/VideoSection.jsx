@@ -10,12 +10,13 @@ import React, { useEffect, useState } from 'react'
 import Webcam from 'react-webcam'
 import { chatSession } from '@/app/utils/GeminiAimodel';
 import { db } from '@/app/utils/db';
-import { useUser } from '@clerk/nextjs';
+
 import { UserAnswers } from '@/app/utils/schema';
+import { useUser } from '@clerk/nextjs'
 
 function VideoSection({mockInterviewQuestions,activeQuestion,interviewdata}) {
   const [userAnswer, setUserAnswer] = useState('')
-  const{user} = useUser();
+  const {user} = useUser();
   const[loading,setLoading] = useState(false);
   const {
     error,
@@ -65,22 +66,22 @@ function VideoSection({mockInterviewQuestions,activeQuestion,interviewdata}) {
     const updateUserAnswerInDb= async()=>{
       
       const mockId = interviewdata?.mockId ;
-      console.log(typeof(mockId))
+    
     
 
      
       setLoading(true);
-      const feedbackPrompt=`Question:${mockInterviewQuestions[activeQuestion]?.question},User Answer:${userAnswer},depends on question and user answer for given interview question,please give us rating and feedback as area of improvement if any,in just 3 to 5 lines to improve it in JSON format with rating field and feedback field.`;
+      const feedbackPrompt=`Question:${mockInterviewQuestions[activeQuestion]?.question},User Answer:${userAnswer},depends on question and user answer for given interview question,please give us rating and feedback as area of improvement suggesting where user has to improve  if any,in just 3 to 5 lines to improve it in JSON format with rating field and feedback field.`;
         const result = await chatSession.sendMessage(feedbackPrompt);
-        const MockResponse = result.response.text().replace('```json','').replace('```','').replace(/[\x00-\x1F\x7F]/g, '');
+        const MockResponse = result.response.text().replace('```json','').replace('```','').replace(/[\x00-\x1F\x7F]/g, '').replace(/\*/g, '');
         const JsonFeedbackResp = JSON.parse(MockResponse);
     
 
        const resp = await db.insert(UserAnswers).values({
         mockIdRef: interviewdata?.mockId,
         question: mockInterviewQuestions[activeQuestion]?.question,
-        correctAnswer: mockInterviewQuestions[activeQuestion]?.answer,
-        userAnswer: userAnswer,
+        correctAns: mockInterviewQuestions[activeQuestion]?.answer,
+        userAns: userAnswer,
         feedback: JsonFeedbackResp?.feedback,
         rating: JsonFeedbackResp?.rating,
         CreatedBy: user?.primaryEmailAddress?.emailAddress,

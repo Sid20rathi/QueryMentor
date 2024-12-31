@@ -1,12 +1,9 @@
 "use client"
 import { MockInterview } from "@/app/utils/schema";
-
 import {db} from'@/app/utils/db'
 import { eq } from 'drizzle-orm';
-
 import React,{useEffect, useState} from "react";
 import QuestionSection from "./_components/QuestionSection";
-import VideoSection from "./_components/VideoSection";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 
@@ -26,8 +23,10 @@ const Start = ({params}) => {
     },[]);
     const getInterviewdetails = async()=>{
       const result = await db.select().from(MockInterview).where(eq(MockInterview.mockId,params.interviewId))
+      console.log(result);
       const jsonMockResponse = JSON.parse(result[0].jsonMockResp);
-      setMockInterviewQuestions(jsonMockResponse?.interview_questions_and_answers)
+      console.log(jsonMockResponse);
+      setMockInterviewQuestions(jsonMockResponse?.questions_and_answers)
       setInterviewdata(result[0]);
   
       

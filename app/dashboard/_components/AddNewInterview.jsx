@@ -32,9 +32,9 @@ function AddNewInterview() {
     const onSubmit = async(e)=>{
       setLoading(true);
       e.preventDefault()
-      const InputPrompt =  `job position: ${jobPosition}, job description: ${jobDescription}, job experience: ${jobExperience},depends on the job position and experience level, provide ${process.env.NEXT_PUBLIC_MOCK_INTERVIEW_QUESTIONS_COUNT} most difficult interview questions along with answers in JSON format,Give us questions and answers field on JSON`
+      const InputPrompt =  `job position: ${jobPosition}, job description: ${jobDescription}, job experience: ${jobExperience},depends on the job position and experience level, provide ${process.env.NEXT_PUBLIC_MOCK_INTERVIEW_QUESTIONS_COUNT} most difficult interview questions along with answers like how would a professional person would answer this question in an real interview in JSON format,Give us questions and answers field on JSON`
       const result = await chatSession.sendMessage(InputPrompt);
-      const MockResponse = result.response.text().replace('```json','').replace('```','').replace(/[\x00-\x1F\x7F]/g, '');
+      const MockResponse = result.response.text().replace('```json','').replace('```','').replace(/[\x00-\x1F\x7F]/g,'');
       console.log(JSON.parse(MockResponse));
       setJsonResponse(MockResponse);
       if(MockResponse){
@@ -50,7 +50,7 @@ function AddNewInterview() {
   
   
         }).returning({mockId:MockInterview.mockId})
-        console.log("id is",res);
+      
         if(res){
           setOpenDialog(false);
           router.push(`/dashboard/interview/${res[0]?.mockId}`)
