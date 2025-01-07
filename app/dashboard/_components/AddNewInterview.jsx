@@ -53,7 +53,7 @@ function AddNewInterview() {
       
         if(res){
           setOpenDialog(false);
-          router.push(`/dashboard/interview/${res[0]?.mockId}`)
+          router.replace(`/dashboard/interview/${res[0]?.mockId}`)
         }
        
       }else{
@@ -83,21 +83,21 @@ function AddNewInterview() {
            
             <h2>Add Details about your job position/role, Job description and years of experience</h2>
             <div className='mt-7 my-3'>
-            <label> Job Role/Job Position</label>
-            <Input placeholder='Ex. Full Stack Developer' required onChange={(e)=>{
+            <label className="text-black"> Job Role/Job Position</label>
+            <Input placeholder='Ex. Full Stack Developer'className="text-black" required onChange={(e)=>{
                 setJobPosition(e.target.value)
             }} />
 
             </div>
             <div className=' my-3'>
-            <label> Job Description/Tech Stack</label>
-            <Textarea placeholder='Ex. React,Angular ,Node js ,MySql etc' required onChange={(e)=>{
+            <label className="text-black"> Job Description/Tech Stack</label>
+            <Textarea placeholder='Ex. React,Angular ,Node js ,MySql etc' className="text-black" required onChange={(e)=>{
                 setJobDescription(e.target.value)}}/>
 
             </div>
             <div className=' my-3'>
-            <label>Years of Experience</label>
-            <Input placeholder='Ex.5 years' type='number' min='0' max='20' required onChange={(e)=>{
+            <label className="text-black">Years of Experience</label>
+            <Input placeholder='Ex.5 years' type='number' min='0' max='20' className="text-black" required onChange={(e)=>{
                 setJobExperience(e.target.value)}}/>
 
             </div>

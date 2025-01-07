@@ -24,6 +24,7 @@ function feedback({params}) {
         let ans = 0;
  
         setNoOfAnswers(result.length);
+       
         for(let i = 0; i<result.length;i++){
           let num  = Number(result[i].rating);
           ans = ans+num;
@@ -31,6 +32,7 @@ function feedback({params}) {
         
            
         }
+        console.log(ans);
         setTotalRating(ans);
      
        
@@ -39,6 +41,7 @@ function feedback({params}) {
 
     }
     const value = (totalrating/noOfAnswers).toFixed(2);
+    console.log(value);
   
   return (
     <div className="p-10">

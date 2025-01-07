@@ -4,6 +4,7 @@
 
 
 import { ContainerScroll } from "@/components/ui/ContainerScroll";
+import GradientText from "@/components/ui/GradientText/GradientText";
 
 
 import { motion } from "framer-motion";
@@ -53,11 +54,19 @@ export default function Home() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
         >
-          Ace Your Next Interview with <span className=" bg-gradient-to-r from-violet-600 to-green-500 text-transparent bg-clip-text  text-7xl">QueryMentor</span>
+          Ace Your Next Interview with 
+          <GradientText
+  colors={["#7348dd", "#58c064", "#7348dd", "#58c064", "#7348dd"]}
+  animationSpeed={9}
+  showBorder={false}
+  className="text-7xl font-extrabold "
+>
+QueryMentor
+</GradientText>
      
         </motion.h2>
         <motion.p 
-          className="text-lg mb-8"
+          className="text-lg text-gray-500 mb-8"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.5 }}
@@ -202,7 +211,7 @@ export default function Home() {
 
   
       <footer className="container mx-auto px-8 py-8 text-center text-black">
-        <p>&copy; 2024 QueryMentor. All rights reserved.</p>
+        <p>&copy; 2025 QueryMentor. All rights reserved.</p>
       </footer>
      
     </div>

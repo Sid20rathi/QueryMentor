@@ -71,7 +71,7 @@ function VideoSection({mockInterviewQuestions,activeQuestion,interviewdata}) {
 
      
       setLoading(true);
-      const feedbackPrompt=`Question:${mockInterviewQuestions[activeQuestion]?.question},User Answer:${userAnswer},depends on question and user answer for given interview question,please give us rating and feedback as area of improvement suggesting where user has to improve  if any,in just 3 to 5 lines to improve it in JSON format with rating field and feedback field.`;
+      const feedbackPrompt=`Question:${mockInterviewQuestions[activeQuestion]?.question},User Answer:${userAnswer},depends on question and user answer for given interview question,please give us rating in a single number out of 10 only and feedback as area of improvement suggesting where user has to improve  if any,in just 3 to 5 lines to improve it in JSON format with rating field and feedback field.`;
         const result = await chatSession.sendMessage(feedbackPrompt);
         const MockResponse = result.response.text().replace('```json','').replace('```','').replace(/[\x00-\x1F\x7F]/g, '').replace(/\*/g, '');
         const JsonFeedbackResp = JSON.parse(MockResponse);
