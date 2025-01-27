@@ -40,7 +40,7 @@ function feedback({params}) {
        setFeedbackList(result);
 
     }
-  /* TODO: add face reco , if more than 2 faces detected warning should be given and after a fixed number of warning , test should be deleted   */
+
     const value = (totalrating/noOfAnswers).toFixed(2);
     console.log(value);
   
